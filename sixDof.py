@@ -121,35 +121,35 @@ class sixDofSimPltfm(object):
 	
 	def __repr__(self):
 		info = \
-			'='*62+\
-			'\nThis a 6 DOF Racing Simulator Platfom\n\n'+\
-			'Its Parameters are as follows:\n'\
-			'\tpltfmPivotDistance = '+str(self.pltfmPivotDistance)+\
-			'\n\tpltfmPivotRadius = '+str(self.pltfmPivotDistance)+\
-			'\n\tshaftRadius = '+str(self.shaftRadius)+\
-			'\n\tcrankLength = '+str(self.crankLength)+\
-			'\n\trodLength = '+str(self.rodLength)+\
-			'\n\tpltfmHeight = '+str(self.pltfmHeight)+\
-			'\n\tpltfmRefPointCoords = '+str(self.pltfmHeight)+\
-			'\n\tcrankAngles0 =\n'
+			'#'*42+\
+			'\n# This a 6 DOF Racing Simulator Platfom. #\n'+'#'*42+\
+			'\n\nIts Parameters are as follows:\n'\
+			'\n    '+"{:<20}".format('pltfmPivotDistance')  +' = '+str(self.pltfmPivotDistance)+\
+			'\n    '+"{:<20}".format('pltfmPivotRadius')    +' = '+str(self.pltfmPivotDistance)+\
+			'\n    '+"{:<20}".format('shaftRadius')         +' = '+str(self.shaftRadius)+\
+			'\n    '+"{:<20}".format('crankLength')         +' = '+str(self.crankLength)+\
+			'\n    '+"{:<20}".format('rodLength')           +' = '+str(self.rodLength)+\
+			'\n    '+"{:<20}".format('pltfmHeight')         +' = '+str(self.pltfmHeight)+\
+			'\n    '+"{:<20}".format('pltfmRefPointCoords') +' = '+str(self.pltfmHeight)+\
+			'\n\n    crankAngles0 =\n'
 		for i in range(0,6):
-			info = info+'\t\tSERVO Number '+str(i+1)+':  '+str("%.2f" % self.crankAngles0[i])+'\tdegrees\n'
-		info = info +'\tcrankAnglesNow =\n'
+			info += ' '*8+'SERVO Number '+str(i+1)+':'+"{:>7,.2f}".format(self.crankAngles0[i])+' degrees\n'
+		info += '    crankAnglesNow =\n'
 		for i in range(0,6):
-			info = info+'\t\tSERVO Number '+str(i+1)+':  '+str("%.2f" % self.crankAnglesNow[i])+'\tdegrees\n'
-		info = info+'\tpltfmPivotCoords0 =\n'
+			info += ' '*8+'SERVO Number '+str(i+1)+':'+"{:>7,.2f}".format(self.crankAnglesNow[i])+' degrees\n'
+		info += '    pltfmPivotCoords0 =\n'
 		for i in range(0,6):
-			info = info+'\t\tPivot Number '+str(i+1)+': ('+\
-			str("%.2f" % self.pltfmPivotCoords0[i].T.tolist()[0][0])+'\t,'+\
-			str("%.2f" % self.pltfmPivotCoords0[i].T.tolist()[0][1])+'\t,'+\
-			str("%.2f" % self.pltfmPivotCoords0[i].T.tolist()[0][2])+'\t)'+'\n'
-		info = info+'\tpltfmPivotCoordsNow =\n'
+			info = info+' '*8+'Pivot Number '+str(i+1)+': ('+\
+			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][0])+\
+			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][1])+\
+			"{:>7,.2f})\n".format(self.pltfmPivotCoords0[i].T.tolist()[0][2])
+		info += '   pltfmPivotCoordsNow =\n'
 		for i in range(0,6):
-			info = info+'\t\tPivot Number '+str(i+1)+': ('+\
-			str("%.2f" % self.pltfmPivotCoordsNow[i].T.tolist()[0][0])+'\t,'+\
-			str("%.2f" % self.pltfmPivotCoordsNow[i].T.tolist()[0][1])+'\t,'+\
-			str("%.2f" % self.pltfmPivotCoordsNow[i].T.tolist()[0][2])+'\t)'+'\n'
-		info = info + '='*62 + '\n'
+			info += ' '*8+'Pivot Number '+str(i+1)+': ('+\
+			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][0])+\
+			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][1])+\
+			"{:>7,.2f})\n".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][2])
+		info = info + '#'*49 + '\n'
 		return info
 	def printCoords(self,printObjectName):
 		if printObjectName in ('pltfmPivot','pivot','pltfmPivotNow','pivotNow',\
@@ -167,17 +167,15 @@ class sixDofSimPltfm(object):
 			printObject = self.crankPivotCoords
 		else:
 			pass
-		info = '='*62+'\n\t'+printObjectName+' =\n'
+		info = '='*45+'\n'+printObjectName+' =\n'
 		for i in range(0,6):
 			coords = printObject[i].T.tolist()[0]
-			strX=str("%.2f" % coords[0])
-			strY=str("%.2f" % coords[1])
-			strZ=str("%.2f" % coords[2])
-			info = info+'\t\tPoint Number '+str(i+1)+': ('+\
-			strX+' '*(8-len(strX))+', '+\
-			strY+' '*(8-len(strY))+', '+\
-			strZ+' '*(8-len(strZ))+')'+'\n'
-		info = info + '='*62 + '\n'
+			strX="{:>7,.2f}".format(coords[0])
+			strY="{:>7,.2f}".format(coords[1])
+			strZ="{:>7,.2f}".format(coords[2])
+			info += '    Point Number '+str(i+1)+': ('+\
+			strX+','+strY+','+strZ+')\n'
+		info = info + '='*45 + '\n'
 		print(info)
 	def printAngles(self,printObjectName):
 		if printObjectName in ('crankAnglesNow','crankAngles','crankAngleNow','crankAngle','crank'):
@@ -191,11 +189,10 @@ class sixDofSimPltfm(object):
 			printObject = self.anglesRodToCrankPlane
 		else:
 			raise TypeError
-		info = '='*62+'\n\t'+printObjectName+' =\n'
+		info = '='*34 + '\n'+printObjectName+' =\n'
 		for i in range(0,6):
-			strAngle=str("%.2f" % printObject[i])
-			info = info+'\t\tAngle Number '+str(i+1)+':  '+strAngle+'\tdegrees\n'
-		info = info + '='*62 + '\n'
+			info += "    Angle Number "+str(i+1)+':'+"{:>7,.2f}".format(printObject[i])+' degrees\n'
+		info = info + '='*34 + '\n'
 		print(info)
 	'''
 	==================================================
