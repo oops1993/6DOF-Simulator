@@ -424,9 +424,9 @@ class coordSystem(object):
 		pass
 	def printAngles(self):
 		print('='*42)
-		print('Angles bewteen YZ plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[0,0])))+' degrees;')
-		print('Angles bewteen ZX plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[1,1])))+' degrees;')
-		print('Angles bewteen XY plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[2,2])))+' degrees.')
+		print('Angle bewteen YZ planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[0,0])))+' degrees;')
+		print('Angle bewteen ZX planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[1,1])))+' degrees;')
+		print('Angle bewteen XY planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[2,2])))+' degrees.')
 		print('='*42+'\n')
 	def transformByMatrixGlobal(self,transformMatrix):
 		#CoordSystem transform by a transform Matrix in global coord system.
