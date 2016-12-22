@@ -32,11 +32,11 @@ def changeServoAngle(angleList):
     global servoMinDutyCycle, servoMinDutyCycle, servoPinNumber, pwm
     def pl(angle):
         if angle>=0. and angle<=180.:
-            return floor((angle/(servoMaxDutyCycle-servoMinDutyCycle)+servoMinDutyCycle)*40.96+0.5)
+            return int((angle/(servoMaxDutyCycle-servoMinDutyCycle)+servoMinDutyCycle)*40.96+0.5)
         elif angle<0.:
-            return floor((servoMinDutyCycle)*40.96+0.5)
+            return int((servoMinDutyCycle)*40.96+0.5)
         elif angle>180.:
-            return floor((servoMaxDutyCycle)*40.96+0.5)
+            return int((servoMaxDutyCycle)*40.96+0.5)
     for i in (0,1,2,3,4,5):
         if I2C:
             pwm.set_pwm(servoPinNumber[i], 0 , pl(angleList[i]))
