@@ -121,8 +121,8 @@ class sixDofSimPltfm(object):
 	
 	def __repr__(self):
 		info = \
-			'#'*42+\
-			'\n# This a 6 DOF Racing Simulator Platfom. #\n'+'#'*42+\
+			'#'*43+\
+			'\n# This a 6 DOF Racing Simulator Platform. #\n'+'#'*43+\
 			'\n\nIts Parameters are as follows:\n'\
 			'\n    '+"{:<20}".format('pltfmPivotDistance')  +' = '+"{:>6,.1f}".format(self.pltfmPivotDistance)+\
 			'\n    '+"{:<20}".format('pltfmPivotRadius')    +' = '+"{:>6,.1f}".format(self.pltfmPivotRadius)+\
