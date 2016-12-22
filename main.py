@@ -7,8 +7,8 @@ import servo
 
 a = sixDof.sixDofSimPltfm()
 Rot1 = sixDof.calcTransformMatrix(\
-    20.,0.,0.,3.,3.,3.,degree=True)
-a.transformByMatrixGlobal(Rot1)
+    0.,0.,0.,0.,0.,0.,degree=True)
+a.transform(Rot1,'Global')
 a.printCoords('pivots')
 if False:
     for i in range(0,6):
@@ -18,9 +18,16 @@ a.printAngles('crank')
 print a
 a.calcBearingAngle()
 print a.checkBearingAngle(),'\n'
-a.pltfmPosition.printAngles()
 servo.servoInitialize()
-servo.changeCrankangle(a.crankAnglesNow)
+servo.changeCrankAngle(a.crankAnglesNow)
+time.sleep(1)
+Rot2 = sixDof.calcTransformMatrix(\
+    1.,0.,0.,0.,0.,0.,degree=True)
+for i in range(0,20):
+    a.transform(Rot1,'Global')
+    servo.changeCrankAngle(a.crankAnglesNow)
+    time.sleep(0.2)
+
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
     time.sleep(1)
