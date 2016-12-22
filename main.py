@@ -32,7 +32,7 @@ def changeServoAngle(angleList):
     global servoMinDutyCycle, servoMinDutyCycle, servoPinNumber, pwm
     def pl(angle):
         if angle>=0. and angle<=180.:
-            return int((angle/(servoMaxDutyCycle-servoMinDutyCycle)+servoMinDutyCycle)*40.96+0.5)
+            return int((angle/180.*(servoMaxDutyCycle-servoMinDutyCycle)+servoMinDutyCycle)*40.96+0.5)
         elif angle<0.:
             return int((servoMinDutyCycle)*40.96+0.5)
         elif angle>180.:
