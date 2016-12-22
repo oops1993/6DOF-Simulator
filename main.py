@@ -9,7 +9,6 @@ import time
 I2C = False
 try:
     import Adafruit_PCA9685
-    I2C= True
 except Exception as ex1:
     print("Failed to import Adafruit_PCA9685")
 
