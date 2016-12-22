@@ -10,7 +10,7 @@ I2C = False
 try:
     import Adafruit_PCA9685
 except Exception as ex1:
-    print("Failed to import Adafruit_PCA9685")
+    print("Failed to import Adafruit_PCA9685.\n")
 
 if I2C:
     servoFrequency = 50
@@ -56,6 +56,7 @@ if False:
 a.printAngles('crank')
 print a
 a.calcBearingAngle()
-print(a.checkBearingAngle())
+print a.checkBearingAngle(),'\n'
+a.pltfmPosition.printAngles()
 if I2C:
     changeCrankAngle([45., 135., 45., 135., 45., 135.])

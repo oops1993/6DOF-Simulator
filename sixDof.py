@@ -124,13 +124,14 @@ class sixDofSimPltfm(object):
 			'#'*42+\
 			'\n# This a 6 DOF Racing Simulator Platfom. #\n'+'#'*42+\
 			'\n\nIts Parameters are as follows:\n'\
-			'\n    '+"{:<20}".format('pltfmPivotDistance')  +' = '+str(self.pltfmPivotDistance)+\
-			'\n    '+"{:<20}".format('pltfmPivotRadius')    +' = '+str(self.pltfmPivotDistance)+\
-			'\n    '+"{:<20}".format('shaftRadius')         +' = '+str(self.shaftRadius)+\
-			'\n    '+"{:<20}".format('crankLength')         +' = '+str(self.crankLength)+\
-			'\n    '+"{:<20}".format('rodLength')           +' = '+str(self.rodLength)+\
-			'\n    '+"{:<20}".format('pltfmHeight')         +' = '+str(self.pltfmHeight)+\
-			'\n    '+"{:<20}".format('pltfmRefPointCoords') +' = '+str(self.pltfmHeight)+\
+			'\n    '+"{:<20}".format('pltfmPivotDistance')  +' = '+"{:>6,.1f}".format(self.pltfmPivotDistance)+\
+			'\n    '+"{:<20}".format('pltfmPivotRadius')    +' = '+"{:>6,.1f}".format(self.pltfmPivotRadius)+\
+			'\n    '+"{:<20}".format('shaftRadius')         +' = '+"{:>6,.1f}".format(self.shaftRadius)+\
+			'\n    '+"{:<20}".format('crankLength')         +' = '+"{:>6,.1f}".format(self.crankLength)+\
+			'\n    '+"{:<20}".format('rodLength')           +' = '+"{:>6,.1f}".format(self.rodLength)+\
+			'\n    '+"{:<20}".format('pltfmHeight')         +' = '+"{:>6,.1f}".format(self.pltfmHeight)+\
+			'\n    '+"{:<20}".format('pltfmRefPointCoords') +' = '+\
+			"({:>5,.1f},{:>5,.1f},{:>6,.1f})".format(self.pltfmRefPointCoords[0,0],self.pltfmRefPointCoords[1,0],self.pltfmRefPointCoords[2,0])+\
 			'\n\n    crankAngles0 =\n'
 		for i in range(0,6):
 			info += ' '*8+'SERVO Number '+str(i+1)+':'+"{:>7,.2f}".format(self.crankAngles0[i])+' degrees\n'
@@ -140,15 +141,15 @@ class sixDofSimPltfm(object):
 		info += '    pltfmPivotCoords0 =\n'
 		for i in range(0,6):
 			info = info+' '*8+'Pivot Number '+str(i+1)+': ('+\
-			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][0])+\
-			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][1])+\
-			"{:>7,.2f})\n".format(self.pltfmPivotCoords0[i].T.tolist()[0][2])
+			"{:>7,.2f},".format(self.pltfmPivotCoords0[i][0,0])+\
+			"{:>7,.2f},".format(self.pltfmPivotCoords0[i][1,0])+\
+			"{:>7,.2f})\n".format(self.pltfmPivotCoords0[i][2,0])
 		info += '    pltfmPivotCoordsNow =\n'
 		for i in range(0,6):
 			info += ' '*8+'Pivot Number '+str(i+1)+': ('+\
-			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][0])+\
-			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][1])+\
-			"{:>7,.2f})\n".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][2])
+			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i][0,0])+\
+			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i][1,0])+\
+			"{:>7,.2f})\n".format(self.pltfmPivotCoordsNow[i][2,0])
 		info = info + '#'*49 + '\n'
 		return info
 	def printCoords(self,printObjectName):
@@ -422,11 +423,11 @@ class coordSystem(object):
 	def __getitem__(self,key):
 		pass
 	def printAngles(self):
-		print('='*62)
-		print('Angles bewteen YZ plane is '+str("%.2f" % ml.degrees(acos(self.directionMatrix[0,0])))+' degrees;')
-		print('Angles bewteen XZ plane is '+str("%.2f" % ml.degrees(acos(self.directionMatrix[1,1])))+' degrees;')
-		print('Angles bewteen XY plane is '+str("%.2f" % ml.degrees(acos(self.directionMatrix[2,2])))+' degrees.')
-		print('='*62+'\n')
+		print('='*42)
+		print('Angles bewteen YZ plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[0,0])))+' degrees;')
+		print('Angles bewteen ZX plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[1,1])))+' degrees;')
+		print('Angles bewteen XY plane is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[2,2])))+' degrees.')
+		print('='*42+'\n')
 	def transformByMatrixGlobal(self,transformMatrix):
 		#CoordSystem transform by a transform Matrix in global coord system.
 		self.originCoords = self.originCoords + ml.vstack([transformMatrix[0:3,3],ml.zeros((1,1))])
