@@ -143,7 +143,7 @@ class sixDofSimPltfm(object):
 			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][0])+\
 			"{:>7,.2f},".format(self.pltfmPivotCoords0[i].T.tolist()[0][1])+\
 			"{:>7,.2f})\n".format(self.pltfmPivotCoords0[i].T.tolist()[0][2])
-		info += '   pltfmPivotCoordsNow =\n'
+		info += '    pltfmPivotCoordsNow =\n'
 		for i in range(0,6):
 			info += ' '*8+'Pivot Number '+str(i+1)+': ('+\
 			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i].T.tolist()[0][0])+\
