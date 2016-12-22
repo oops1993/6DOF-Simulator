@@ -4,7 +4,7 @@ from math import *
 import time
 import numpy.matlib as ml
 import servo
-
+#added sth
 a = sixDof.sixDofSimPltfm()
 Rot1 = sixDof.calcTransformMatrix(\
     0.,0.,0.,0.,0.,0.,degree=True)
@@ -23,10 +23,11 @@ servo.changeCrankAngle(a.crankAnglesNow)
 time.sleep(1)
 Rot2 = sixDof.calcTransformMatrix(\
     1.,0.,0.,0.,0.,0.,degree=True)
-for i in range(0,20):
-    a.transform(Rot1,'Global')
+for i in range(0,40):
+    a.transform(Rot2,'Global')
+    print 'HaHa'
     servo.changeCrankAngle(a.crankAnglesNow)
-    time.sleep(0.2)
+    #time.sleep(0.1)
 
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
