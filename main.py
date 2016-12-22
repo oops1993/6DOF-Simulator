@@ -1,4 +1,3 @@
-
 import sixDof
 reload(sixDof)
 from math import *
@@ -20,9 +19,9 @@ print a
 a.calcBearingAngle()
 print a.checkBearingAngle(),'\n'
 a.pltfmPosition.printAngles()
-
 servo.servoInitialize()
-while True:
+servo.changeCrankangle(a.crankAnglesNow)
+while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
     time.sleep(1)
     servo.changeServoAngle([135., 45., 135., 45., 135., 45.])
