@@ -64,13 +64,10 @@ print a.checkBearingAngle(),'\n'
 a.pltfmPosition.printAngles()
 if I2C:
     while True:
-        # Move servo on channel O between extremes.
-        pwm.set_pwm(5, 0, servo_min)
+        changeServoAngle([45., 135., 45., 135., 45., 135.])
         time.sleep(1)
-        pwm.set_pwm(5, 0, servo_max)
+        changeServoAngle([135., 45., 135., 45., 135., 45.])
         time.sleep(1)
-    changeServoAngle([45., 135., 45., 135., 45., 135.])
-    changeCrankAngle([45., 135., 45., 135., 45., 135.])
 if False:
 
     # Initialise the PCA9685 using the default address (0x40).
