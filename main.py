@@ -23,11 +23,19 @@ servo.changeCrankAngle(a.crankAnglesNow)
 time.sleep(1)
 Rot2 = sixDof.calcTransformMatrix(\
     1.,0.,0.,0.,0.,0.,degree=True)
-for i in range(0,40):
-    a.transform(Rot2,'Global')
-    print 'HaHa'
-    servo.changeCrankAngle(a.crankAnglesNow)
-    #time.sleep(0.1)
+Rot3 = sixDof.calcTransformMatrix(\
+    -1.,0.,0.,0.,0.,0.,degree=True)
+while True:
+    for i in range(0,40):
+        a.transform(Rot2,'Global')
+        print 'HaHa'
+        servo.changeCrankAngle(a.crankAnglesNow)
+        time.sleep(0.01)
+    for i in range(0,40):
+        a.transform(Rot3,'Local')
+        print 'HaHa'
+        servo.changeCrankAngle(a.crankAnglesNow)
+        time.sleep(0.01)
 
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
