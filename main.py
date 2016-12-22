@@ -28,12 +28,10 @@ Rot3 = sixDof.calcTransformMatrix(\
 while True:
     for i in range(0,40):
         a.transform(Rot2,'Global')
-        print 'HaHa'
         servo.changeCrankAngle(a.crankAnglesNow)
         time.sleep(0.01)
     for i in range(0,40):
         a.transform(Rot3,'Local')
-        print 'HaHa'
         servo.changeCrankAngle(a.crankAnglesNow)
         time.sleep(0.01)
 
