@@ -25,7 +25,7 @@ Rot2 = sixDof.calcTransformMatrix(\
     1.,0.,0.,0.,0.,0.,degree=True)
 Rot3 = sixDof.calcTransformMatrix(\
     -1.,0.,0.,0.,0.,0.,degree=True)
-while True:
+while False:
     for i in range(0,40):
         a.transform(Rot2,'Global')
         servo.changeCrankAngle(a.crankAnglesNow)
