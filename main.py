@@ -20,20 +20,21 @@ a.calcBearingAngle()
 print a.checkBearingAngle(),'\n'
 servo.servoInitialize()
 servo.changeCrankAngle(a.crankAnglesNow)
-time.sleep(1)
+#time.sleep(1)
 Rot2 = sixDof.calcTransformMatrix(\
     1.,0.,0.,0.,0.,0.,degree=True)
 Rot3 = sixDof.calcTransformMatrix(\
     -1.,0.,0.,0.,0.,0.,degree=True)
-while False:
+
+for j in range(0,100):
     for i in range(0,40):
         a.transform(Rot2,'Global')
         servo.changeCrankAngle(a.crankAnglesNow)
-        time.sleep(0.01)
+        #time.sleep(0.01)
     for i in range(0,40):
         a.transform(Rot3,'Local')
         servo.changeCrankAngle(a.crankAnglesNow)
-        time.sleep(0.01)
+        #time.sleep(0.01)
 
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
