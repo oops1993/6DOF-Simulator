@@ -2,39 +2,53 @@ import sixDof
 reload(sixDof)
 from math import *
 import time
+import pickle_learning
+reload(pickle_learning)
 import numpy.matlib as ml
 import servo
-#added sth
+
 a = sixDof.sixDofSimPltfm()
+print a
+
 Rot1 = sixDof.calcTransformMatrix(\
     0.,0.,0.,0.,0.,0.,degree=True)
-a.transform(Rot1,'Global')
-a.printCoords('pivots')
-if False:
-    for i in range(0,6):
-        print(a.pltfmPivotCoordSystemLocal[i])
-        print(a.pltfmPivotCoordSystem[i])
-a.printAngles('crank')
-print a
-a.calcBearingAngle()
-print a.checkBearingAngle(),'\n'
-servo.servoInitialize()
-servo.changeCrankAngle(a.crankAnglesNow)
-#time.sleep(1)
 Rot2 = sixDof.calcTransformMatrix(\
     1.,0.,0.,0.,0.,0.,degree=True)
 Rot3 = sixDof.calcTransformMatrix(\
     -1.,0.,0.,0.,0.,0.,degree=True)
 
-for j in range(0,100):
-    for i in range(0,40):
-        a.transform(Rot2,'Global')
-        servo.changeCrankAngle(a.crankAnglesNow)
-        #time.sleep(0.01)
-    for i in range(0,40):
-        a.transform(Rot3,'Local')
-        servo.changeCrankAngle(a.crankAnglesNow)
-        #time.sleep(0.01)
+a.transform(Rot1,'Global')
+
+if 0:
+    a.printCoords('pivots')
+    a.printAngles('crank')
+    a.calcBearingAngle()
+    print a.checkBearingAngle(),'\n'
+    print a.pltfmPosition
+
+servo.servoInitialize()
+servo.changeCrankAngle(a.crankAnglesNow)
+#time.sleep(1)
+
+if 0:
+    for _ in range(0,10):
+        for _ in range(40):
+            a.transform(Rot2,'Global')
+            servo.changeCrankAngle(a.crankAnglesNow)
+            try:
+                pickle_learning.sendData("<ffffff",a.crankAnglesNow)
+            except Exception,e:
+                print str(e)
+            time.sleep(0.2)
+        for _ in range(40):
+            a.transform(Rot3,'Local')
+            servo.changeCrankAngle(a.crankAnglesNow)
+            try:
+                pickle_learning.sendData("<ffffff",a.crankAnglesNow)
+            except Exception,e:
+                print str(e)
+            time.sleep(0.2)
+    print 'Done...'
 
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
@@ -67,7 +81,7 @@ if False:
     # Set frequency to 60hz, good for servos.
     pwm.set_pwm_freq(60)
 
-    print('Moving servo on channel 0, press Ctrl-C to quit...')
+    print('Moving servo on channel 0, press Ctrl+C to quit...')
     while True:
         # Move servo on channel O between extremes.
         pwm.set_pwm(0, 0, servo_min)

@@ -38,14 +38,15 @@ def changeServoAngle(angleList):
         if I2C:
             pwm.set_pwm(servoPinNumber[i], 0 , pl(angleList[i]))
         if I2C==False:
-            print("Servo Pin Number: {0}, Pulse length = {1}".format(servoPinNumber[i],pl(angleList[i])))
+            pass
+            #print("Servo Pin Number: {0}, Pulse length = {1}".format(servoPinNumber[i],pl(angleList[i])))
 def changeCrankAngle(angleList):
     global crank2servo
     changeServoAngle(map(lambda (a,b):a+b, zip(angleList,crank2servo)))
 if __name__ =="__main__":
     servoInitialize()
     time.sleep(1)
-    for i in range(0,3):
+    for i in range(3):
         changeServoAngle([45., 135., 45., 135., 45., 135.])
         time.sleep(1)
         changeServoAngle([135., 45., 135., 45., 135., 45.])

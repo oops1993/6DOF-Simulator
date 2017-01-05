@@ -120,37 +120,44 @@ class sixDofSimPltfm(object):
 		del temp
 	
 	def __repr__(self):
+		
 		info = \
-			'#'*43+\
-			'\n# This a 6 DOF Racing Simulator Platform. #\n'+'#'*43+\
+			'#'*51+\
+			'\n{:#^51}\n'.format(' This a 6 DOF Racing Simulator Platform. ')+\
+			'#'*51+\
 			'\n\nIts Parameters are as follows:\n'\
-			'\n    '+"{:<20}".format('pltfmPivotDistance')  +' = '+"{:>6,.1f}".format(self.pltfmPivotDistance)+\
-			'\n    '+"{:<20}".format('pltfmPivotRadius')    +' = '+"{:>6,.1f}".format(self.pltfmPivotRadius)+\
-			'\n    '+"{:<20}".format('shaftRadius')         +' = '+"{:>6,.1f}".format(self.shaftRadius)+\
-			'\n    '+"{:<20}".format('crankLength')         +' = '+"{:>6,.1f}".format(self.crankLength)+\
-			'\n    '+"{:<20}".format('rodLength')           +' = '+"{:>6,.1f}".format(self.rodLength)+\
-			'\n    '+"{:<20}".format('pltfmHeight')         +' = '+"{:>6,.1f}".format(self.pltfmHeight)+\
-			'\n    '+"{:<20}".format('pltfmRefPointCoords') +' = '+\
-			"({:>5,.1f},{:>5,.1f},{:>6,.1f})".format(self.pltfmRefPointCoords[0,0],self.pltfmRefPointCoords[1,0],self.pltfmRefPointCoords[2,0])+\
-			'\n\n    crankAngles0 =\n'
+			'\n	{0:<20} = {1:>6,.1f}'.format('pltfmPivotDistance',self.pltfmPivotDistance)+\
+			'\n	{0:<20} = {1:>6,.1f}'.format('pltfmPivotRadius',self.pltfmPivotRadius)+\
+			'\n	{0:<20} = {1:>6,.1f}'.format('shaftRadius',self.shaftRadius)+\
+			'\n	{0:<20} = {1:>6,.1f}'.format('crankLength',self.crankLength)+\
+			'\n	{0:<20} = {1:>6,.1f}'.format('rodLength',self.rodLength)+\
+			'\n	{0:<20} = {1:>6,.1f}'.format('pltfmHeight',self.pltfmHeight)+\
+			'\n	{0:<20} = ({1:>5,.1f},{2:>5,.1f},{3:>6,.1f})\n\n'.format(\
+				'pltfmRefPointCoords',
+				self.pltfmRefPointCoords[0,0],
+				self.pltfmRefPointCoords[1,0],
+				self.pltfmRefPointCoords[2,0])
+		info += '	crankAngles0 =\n'
 		for i in range(0,6):
-			info += ' '*8+'SERVO Number '+str(i+1)+':'+"{:>7,.2f}".format(self.crankAngles0[i])+' degrees\n'
-		info += '    crankAnglesNow =\n'
+			info += "		Servo Number {1}:{0:>7,.2f} degrees\n".format(self.crankAngles0[i],i+1)
+		info += '	crankAnglesNow =\n'
 		for i in range(0,6):
-			info += ' '*8+'SERVO Number '+str(i+1)+':'+"{:>7,.2f}".format(self.crankAnglesNow[i])+' degrees\n'
-		info += '    pltfmPivotCoords0 =\n'
+			info += "		Servo Number {1}:{0:>7,.2f} degrees\n".format(self.crankAnglesNow[i],i+1)
+		info += '	pltfmPivotCoords0 =\n'
 		for i in range(0,6):
-			info = info+' '*8+'Pivot Number '+str(i+1)+': ('+\
-			"{:>7,.2f},".format(self.pltfmPivotCoords0[i][0,0])+\
-			"{:>7,.2f},".format(self.pltfmPivotCoords0[i][1,0])+\
-			"{:>7,.2f})\n".format(self.pltfmPivotCoords0[i][2,0])
-		info += '    pltfmPivotCoordsNow =\n'
+			info += '		Pivot Number {0}'.format(i+1)+\
+			": ({0:>7,.2f},{1:>7,.2f},{2:>7,.2f})\n".format(\
+				self.pltfmPivotCoords0[i][0,0],\
+				self.pltfmPivotCoords0[i][1,0],\
+				self.pltfmPivotCoords0[i][2,0])
+		info += '	pltfmPivotCoordsNow =\n'
 		for i in range(0,6):
-			info += ' '*8+'Pivot Number '+str(i+1)+': ('+\
-			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i][0,0])+\
-			"{:>7,.2f},".format(self.pltfmPivotCoordsNow[i][1,0])+\
-			"{:>7,.2f})\n".format(self.pltfmPivotCoordsNow[i][2,0])
-		info = info + '#'*49 + '\n'
+			info += '		Pivot Number {0}'.format(i+1)+\
+			": ({0:>7,.2f},{1:>7,.2f},{2:>7,.2f})\n".format(\
+				self.pltfmPivotCoordsNow[i][0,0],\
+				self.pltfmPivotCoordsNow[i][1,0],\
+				self.pltfmPivotCoordsNow[i][2,0])
+		info += '#'*49 + '\n'
 		return info
 	def printCoords(self,printObjectName):
 		if printObjectName in ('pltfmPivot','pivot','pltfmPivotNow','pivotNow',\
@@ -170,12 +177,9 @@ class sixDofSimPltfm(object):
 			pass
 		info = '='*45+'\n'+printObjectName+' =\n'
 		for i in range(0,6):
-			coords = printObject[i].T.tolist()[0]
-			strX="{:>7,.2f}".format(coords[0])
-			strY="{:>7,.2f}".format(coords[1])
-			strZ="{:>7,.2f}".format(coords[2])
-			info += '    Point Number '+str(i+1)+': ('+\
-			strX+','+strY+','+strZ+')\n'
+			coords = printObject[i]
+			info += '	Point Number {0}: ({1:>7,.2f},{2:>7,.2f},{3:>7,.2f})\n'.format(\
+				i+1,coords[0,0],coords[1,0],coords[2,0])
 		info = info + '='*45 + '\n'
 		print(info)
 	def printAngles(self,printObjectName):
@@ -190,10 +194,10 @@ class sixDofSimPltfm(object):
 			printObject = self.anglesRodToCrankPlane
 		else:
 			raise TypeError
-		info = '='*34 + '\n'+printObjectName+' =\n'
+		info = '='*34 + '\n{0} =\n'.format(printObjectName)
 		for i in range(0,6):
-			info += "    Angle Number "+str(i+1)+':'+"{:>7,.2f}".format(printObject[i])+' degrees\n'
-		info = info + '='*34 + '\n'
+			info += "	Angle Number {0}:{1:>7,.2f} degrees\n".format(i+1,printObject[i])
+		info += ('='*34 + '\n')
 		print(info)
 	'''
 	==================================================
@@ -293,6 +297,10 @@ class sixDofSimPltfm(object):
 		if False:
 			for i in pPivotCoordsInShaftCoordSystem:
 				print('='*50,'\npPivotCoordsInShaftCoordSystem: ','\n',i,'\n')
+		
+		crankAnglesNowTemp = self.crankAnglesNow
+		anglesRodToCrankPlaneTemp = self.anglesRodToCrankPlane
+		crankPivotCoordsTemp =self.crankPivotCoords
 		for i in range(0,6):
 			rodDistanceToYZPlane = pPivotCoordsInShaftCoordSystem[i][(0,0)]
 			pivotShaftProjSquare = (\
@@ -304,29 +312,30 @@ class sixDofSimPltfm(object):
 			#print(i,'\ncos(beta) = ',cosBeta,'\n','='*50)
 			if cosBeta>=-1. and cosBeta<=1.: 
 				beta = acos(cosBeta)
-				alpha = acos(pPivotCoordsInShaftCoordSystem[i][(1,0)]/sqrt(pivotShaftProjSquare))
-				if i==0 or i==2 or i==4:
+				alpha = acos(pPivotCoordsInShaftCoordSystem[i][1,0]/sqrt(pivotShaftProjSquare))
+				if i in (0,2,4):
 					singleCrankAngle = ml.degrees(alpha - beta)
-				elif i==1 or i==3 or i==5:
+				else:
 					singleCrankAngle = ml.degrees(alpha + beta)
-				self.crankAnglesNow[i] = singleCrankAngle
-				self.anglesRodToCrankPlane[i]=ml.degrees(asin(rodDistanceToYZPlane/self.rodLength))
+				crankAnglesNowTemp[i] = singleCrankAngle
+				anglesRodToCrankPlaneTemp[i]=ml.degrees(asin(rodDistanceToYZPlane/self.rodLength))
 				singleCrankPivotCoordsLocal=ml.matrix([\
 					[0.],\
 					[self.crankLength*cos(ml.radians(singleCrankAngle))],\
 					[self.crankLength*sin(ml.radians(singleCrankAngle))],\
 					[1.]])
-				self.crankPivotCoords[i]=self.shaftCoordSystem[i].calcAbsCoords(singleCrankPivotCoordsLocal)
+				crankPivotCoordsTemp[i]=self.shaftCoordSystem[i].calcAbsCoords(singleCrankPivotCoordsLocal)
 			else:
 				mathDomainError = True
 				if False:
-					print('No.'+str(i+1)+' Actuator Error','\n')
+					print('No.{0} Actuator Error\n'.format(i+1))
 				#alpha = 0
 				#beta = 0
 		if mathDomainError == False:	
-			answer=[]
-			for i in self.crankAnglesNow:
-				answer.append(i)
+			self.crankAnglesNow = crankAnglesNowTemp
+			self.anglesRodToCrankPlane = anglesRodToCrankPlaneTemp
+			self.crankPivotCoords = crankPivotCoordsTemp
+			answer=crankAnglesNowTemp
 			return answer
 		else:
 			return False
@@ -388,12 +397,15 @@ class coordSystem(object):
 		else:
 			raise TypeError
 	def __repr__(self):
-		if False:
-			return '\nCoordinates are:\n'+str(self.originCoords[0:3,0])+\
-				   '\nDirection Matrix is:\n'+str(self.directionMatrix[0:3,0:3])
+		if True:
+			return '\nCoordinates are:\n({0:>7.2f},{1:>7.2f},{2:>7.2f})'.format(\
+						self.originCoords[0,0],\
+						self.originCoords[1,0],\
+						self.originCoords[2,0])+\
+				   '\nDirection Matrix is:\n{0}'.format(self.directionMatrix[0:3,0:3])
 		else:
-			return '\nCoordinates are:\n'+str(self.originCoords)+\
-				   '\nDirection Matrix is:\n'+str(self.directionMatrix)
+			return '\nCoordinates are:\n{0}'.format(self.originCoords)+\
+				   '\nDirection Matrix is:\n{0}'.format(self.directionMatrix)
 	def __add__(self,other):
 		#Generate a new coordSystem, which is:
 		#coordSystem A transformed by a global CoordSystem B.
@@ -424,9 +436,9 @@ class coordSystem(object):
 		pass
 	def printAngles(self):
 		print('='*42)
-		print('Angle bewteen YZ planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[0,0])))+' degrees;')
-		print('Angle bewteen ZX planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[1,1])))+' degrees;')
-		print('Angle bewteen XY planes is'+"{:>7,.2f}".format(ml.degrees(acos(self.directionMatrix[2,2])))+' degrees.')
+		print('Angle bewteen YZ planes is'+"{:>7,.2f} degrees;".format(ml.degrees(acos(self.directionMatrix[0,0]))))
+		print('Angle bewteen ZX planes is'+"{:>7,.2f} degrees;".format(ml.degrees(acos(self.directionMatrix[1,1]))))
+		print('Angle bewteen XY planes is'+"{:>7,.2f} degrees.".format(ml.degrees(acos(self.directionMatrix[2,2]))))
 		print('='*42+'\n')
 	def transformByMatrixGlobal(self,transformMatrix):
 		#CoordSystem transform by a transform Matrix in global coord system.
@@ -473,20 +485,20 @@ def calcTransformMatrix(x=0.0,y=0.0,z=0.0,radX=0.,radY=0.,radZ=0.,degree = False
 		[0., 0., 1., z ],\
 		[0., 0., 0., 1.]])
 	RX = ml.matrix([\
-		[1.,       0.,        0.,0.],\
+		[1.,	   0.,		0.,0.],\
 		[0.,cos(radX),-sin(radX),0.],\
 		[0.,sin(radX), cos(radX),0.],\
-		[0.,       0.,        0.,1.]])
+		[0.,	   0.,		0.,1.]])
 	RY = ml.matrix([\
 		[ cos(radY),0.,sin(radY),0.],\
-		[0.        ,1.,       0.,0.],\
+		[0.		,1.,	   0.,0.],\
 		[-sin(radY),0.,cos(radY),0.],\
-		[0.,       0.,        0.,1.]])
+		[0.,	   0.,		0.,1.]])
 	RZ = ml.matrix([\
 		[cos(radZ),-sin(radZ),0.,0.],\
 		[sin(radZ), cos(radZ),0.,0.],\
-		[0.       , 0.       ,1.,0.],\
-		[0.       , 0.       ,0.,1.]])
+		[0.	   , 0.	   ,1.,0.],\
+		[0.	   , 0.	   ,0.,1.]])
 	M = T*RZ*RY*RX
 	return M
 def calcTransform(pointIn=ml.matrix([[0.], [0.], [0.], [1.]]),\
@@ -501,20 +513,20 @@ def calcTransform(pointIn=ml.matrix([[0.], [0.], [0.], [1.]]),\
 		[0., 0., 1., z ],\
 		[0., 0., 0., 1.]])
 	RX = ml.matrix([\
-		[1.,       0.,        0.,0.],\
+		[1.,	   0.,		0.,0.],\
 		[0.,cos(radX),-sin(radX),0.],\
 		[0.,sin(radX), cos(radX),0.],\
-		[0.,       0.,        0.,1.]])
+		[0.,	   0.,		0.,1.]])
 	RY = ml.matrix([\
 		[ cos(radY),0.,sin(radY),0.],\
-		[0.        ,1.,       0.,0.],\
+		[0.		,1.,	   0.,0.],\
 		[-sin(radY),0.,cos(radY),0.],\
-		[0.,       0.,        0.,1.]])
+		[0.,	   0.,		0.,1.]])
 	RZ = ml.matrix([\
 		[cos(radZ),-sin(radZ),0.,0.],\
 		[sin(radZ), cos(radZ),0.,0.],\
-		[0.       , 0.       ,1.,0.],\
-		[0.       , 0.       ,0.,1.]])
+		[0.	   , 0.	   ,1.,0.],\
+		[0.	   , 0.	   ,0.,1.]])
 	M = T*RZ*RY*RX
 	return M*pointIn
 def calcInverseMatrix(x=0.0,y=0.0,z=0.0,\
@@ -529,20 +541,20 @@ def calcInverseMatrix(x=0.0,y=0.0,z=0.0,\
 		[0., 0., 1.,-z ],\
 		[0., 0., 0., 1.]])
 	RX = ml.matrix([\
-		[1.,       0.,         0.,0.],\
+		[1.,	   0.,		 0.,0.],\
 		[0., cos(radX), sin(radX),0.],\
 		[0.,-sin(radX), cos(radX),0.],\
-		[0.,        0.,        0.,1.]])
+		[0.,		0.,		0.,1.]])
 	RY = ml.matrix([\
 		[cos(radY),0.,-sin(radY),0.],\
-		[0.       ,1.,        0.,0.],\
+		[0.	   ,1.,		0.,0.],\
 		[sin(radY),0., cos(radY),0.],\
-		[0.,      0.,         0.,1.]])
+		[0.,	  0.,		 0.,1.]])
 	RZ = ml.matrix([\
 		[ cos(radZ),sin(radZ),0.,0.],\
 		[-sin(radZ),cos(radZ),0.,0.],\
-		[0.        ,0.       ,1.,0.],\
-		[0.        ,0.       ,0.,1.]])
+		[0.		,0.	   ,1.,0.],\
+		[0.		,0.	   ,0.,1.]])
 	M = RX*RY*RZ*T
 	return M
 '''Rotaion Sequence: First: X Axis, Second: Y Axis, Third: Z Z axis.'''
@@ -558,20 +570,20 @@ def calcInverse(pointIn=ml.matrix([[0.], [0.], [0.], [1.]]),\
 		[0., 0., 1.,-z ],\
 		[0., 0., 0., 1.]])
 	RX = ml.matrix([\
-		[1.,       0.,         0.,0.],\
+		[1.,	   0.,		 0.,0.],\
 		[0., cos(radX), sin(radX),0.],\
 		[0.,-sin(radX), cos(radX),0.],\
-		[0.,        0.,        0.,1.]])
+		[0.,		0.,		0.,1.]])
 	RY = ml.matrix([\
 		[cos(radY),0.,-sin(radY),0.],\
-		[0.       ,1.,        0.,0.],\
+		[0.	   ,1.,		0.,0.],\
 		[sin(radY),0., cos(radY),0.],\
-		[0.,      0.,         0.,1.]])
+		[0.,	  0.,		 0.,1.]])
 	RZ = ml.matrix([\
 		[ cos(radZ),sin(radZ),0.,0.],\
 		[-sin(radZ),cos(radZ),0.,0.],\
-		[0.        ,0.       ,1.,0.],\
-		[0.        ,0.       ,0.,1.]])
+		[0.		,0.	   ,1.,0.],\
+		[0.		,0.	   ,0.,1.]])
 	M = RX*RY*RZ*T
 	return M*pointIn
 
