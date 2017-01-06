@@ -23,4 +23,4 @@ def sendData(PackingString, PackingList):
 		udp2_socket.sendall(info)
 	except Exception,e:
 		print(str(e))
-		connnetServer()
+		#connnetServer()

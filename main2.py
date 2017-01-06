@@ -5,7 +5,7 @@ import numpy.matlib as ml
 import numpy as np
 import xlwt
 import time
-import pickle_learning
+#import pickle_learning
 from datetime import datetime
 from math import *
 reload(sixDof)
@@ -13,7 +13,7 @@ answer=[]
 #trueNum=0
 #falseNum=0
 a = sixDof.sixDofSimPltfm()
-'''
+
 lock =  threading.Lock()
 def exampleJob(i):
     temp = []
@@ -80,6 +80,7 @@ for i in np.linspace(0,20,5):
                 #falseNum=falseNum+1
                 #print 'False NO.',falseNum
                  pass
+'''
 answer2=[]
 for i in range(0,len(answer)-1):
     if answer[i][0]!=answer[i+1][0] or answer[i][1]!=answer[i+1][1]:

@@ -3,7 +3,6 @@ reload(sixDof)
 from math import *
 import time
 import pickle_learning
-reload(pickle_learning)
 import numpy.matlib as ml
 import servo
 
@@ -31,24 +30,72 @@ servo.changeCrankAngle(a.crankAnglesNow)
 #time.sleep(1)
 
 if 1:
-    for _ in range(0,10):
-        for _ in range(40):
+    for _ in range(2):
+        for _ in range(20):
             a.transform(Rot2,'Global')
             servo.changeCrankAngle(a.crankAnglesNow)
             try:
                 pickle_learning.sendData("<ffffff",a.crankAnglesNow)
+                print("({0:>7,.2f},{1:>7,.2f},{2:>7,.2f},{3:>7,.2f},{4:>7,.2f},{5:>7,.2f})"\
+                      .format(a.crankAnglesNow[0],a.crankAnglesNow[1],\
+                              a.crankAnglesNow[2],a.crankAnglesNow[3],\
+                              a.crankAnglesNow[4],a.crankAnglesNow[5]))
             except Exception,e:
                 print str(e)
-            time.sleep(0.2)
+            #time.sleep(0.02)
         for _ in range(40):
             a.transform(Rot3,'Local')
             servo.changeCrankAngle(a.crankAnglesNow)
             try:
                 pickle_learning.sendData("<ffffff",a.crankAnglesNow)
+                print("({0:>7,.2f},{1:>7,.2f},{2:>7,.2f},{3:>7,.2f},{4:>7,.2f},{5:>7,.2f})"\
+                      .format(a.crankAnglesNow[0],a.crankAnglesNow[1],\
+                              a.crankAnglesNow[2],a.crankAnglesNow[3],\
+                              a.crankAnglesNow[4],a.crankAnglesNow[5]))
             except Exception,e:
                 print str(e)
-            time.sleep(0.2)
+            #time.sleep(0.02)
     print 'Done...'
+
+lock =  threading.Lock()
+def receiveJob(i):
+    temp = []
+    for j in np.linspace(0,20,21):
+        for k in np.linspace(108,128,21):
+            pltfmPosition=sixDof.createCoordSystem(x=i,y=j,z=k,angleX=0.,angleY=0.,angleZ=0.)
+            a.calcPltfmPivotCoords(pltfmPosition)
+            if a.calcCrankAngle()!=False:
+                #trueNum=trueNum+1
+                #print 'True NO.',trueNum,"{0}/{1}/{2}".format(i,j,k)
+                #a.printAngles('crank')
+                temp.append([i,j,k])
+                pass
+            elif a.calcCrankAngle()==False:
+                #answer.append([i,j,k-1])
+                #falseNum=falseNum+1
+                #print 'False NO.',falseNum
+                pass
+    with lock:    
+        print threading.current_thread().name,i
+        print 'x =',i,' \t',datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return temp
+def threader():
+    global answer
+    while True:
+        i = q.get()
+        answer.extend(exampleJob(i))
+        q.task_done()
+    
+q = Queue()
+
+for _ in range(4):
+    t = threading.Thread(target = threader)
+    t.daemon = True
+    t.start()
+start = time.time()
+for i in np.linspace(0,40,41):
+    q.put(i)
+q.join()
 
 while False:
     servo.changeServoAngle([45., 135., 45., 135., 45., 135.])
