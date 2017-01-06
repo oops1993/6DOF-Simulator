@@ -30,7 +30,7 @@ servo.servoInitialize()
 servo.changeCrankAngle(a.crankAnglesNow)
 #time.sleep(1)
 
-if 0:
+if 1:
     for _ in range(0,10):
         for _ in range(40):
             a.transform(Rot2,'Global')
